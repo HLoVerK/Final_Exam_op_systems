@@ -1,0 +1,25 @@
+In the first task, we had to create our own user.
+Log in as root:
+sudo su
+
+Add a user named student to the system:
+useradd student(kassym)
+
+Give a password to a student user:
+passwd student(kassym)
+You will be prompted to enter the new password and then re-enter it to confirm it.
+
+Make sure that the user has been added:
+cat /etc/passwd
+This will display a list of all users on the system, including the newly added "student" user.
+
+Log in as the student user:
+su student
+You will be prompted to enter the password for the "student" user.
+
+Make sure that you are logged in as the student user:
+whoami
+
+This should return student(kassym),
+Now you have added a new user named student(kassym) to the system,
+logged in as this user and confirmed that you are logged in as the correct user.
