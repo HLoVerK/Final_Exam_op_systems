@@ -4,7 +4,7 @@
 #include <linux/jiffies.h>
 
 MODULE_LICENSE("GPL")
-MODULE_AUTHOR("Temirzhan")
+MODULE_AUTHOR("Noyan")
 MODULE_DESCRIPTION("Current Timer - Linux Kernel Module");
 
 static struct hrtimer mytimer;
