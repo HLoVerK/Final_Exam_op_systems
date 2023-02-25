@@ -2,7 +2,7 @@
 #include <linux/module.h>
 
 MODULE_LICENSE("GPL")
-MODULE_AUTHOR("Noyan")
+MODULE_AUTHOR("Kassym")
 MODULE_DESCRIPTION("Hello World - Linux Kernel Module");
 
 static int __init hello_init(void)
