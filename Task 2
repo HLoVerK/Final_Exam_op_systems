@@ -1,0 +1,50 @@
+To connect to the Internet using a "Direct" IP connection on a virtual machine, you need to follow these steps:
+
+Check your network interface name using the ifconfig command.
+
+It is necessary to download the necessary packages for further work with them:
+sudo apt-get install network-manager
+sudo apt install isc-dhcp-server -y
+
+After connect the DHCP: 
+ip link show (To see link-layer information of all available devices)
+sudo dhcpcd eth0
+
+test the connection using the ping command. For example, to piong google.com, you can use the command: 
+
+ping google.com -c3(to output the first three lines)
+
+
+Here are the steps to connect to the Internet via NAT:
+Enabled IP address forwarding using this command:
+sudo sysctl -w net.ipv4.ip_forward=1 
+
+Configured iptables NAT by creating two iptables rules. The first rule concerns the transfer of incoming traffic from the external interface eth0 to the internal interface eth1. The second rule is about receiving incoming traffic from the eth1 internal interface:
+sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -i eth1 -j ACCEPT
+
+Checking NAT ip tables and saving them using this command:
+iptables -vnL -t nat
+sudo service iptables save
+
+Here are the steps to implement a connection via a proxy server
+
+Open the terminal and install a proxy server software. For example, you can use Squid, which is a widely used open-source proxy server. To install Squid, enter the following command in the terminal:
+
+sudo apt-get install squid
+
+After the installation is complete, configure the proxy server by creating a Squid configuration file. Open the file using a text editor (for example, Nano or Vi) and make the following changes:
+
+http_port 3128
+acl localnet src 192.168.0.12  # You may have another network address
+http_access allow localnet
+
+This configuration allows the Squid proxy server to listen on port 3128 and allow connections only from the local network.
+
+Restart the proxy server in order for the changes to be saved using this command:
+sudo service squid restart
+
+Now that the proxy server is running, configure the VM to use the proxy server to access the Internet. On the virtual machine, go to the network settings and set the IP address of the host machine and the port number used by Squid in the proxy settings (in this example, port 3128).
+
+Check the connection with command:
+ping google.com -c3
